@@ -19,27 +19,15 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
+  html, body {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
     background: #fff;
   }
 
   .app {
-    position: relative;
-    z-index: 1;
     width: 100%;
     max-width: 480px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1.5rem;
+    margin: 0 auto;
   }
 
   /* ══ PAGES ══ */
@@ -49,6 +37,8 @@
     align-items: center;
     text-align: center;
     width: 100%;
+    min-height: 100vh;
+    padding: 3rem 1.5rem 2rem;
     animation: fadeIn 0.8s ease;
   }
   .page.active { display: flex; }
@@ -58,12 +48,10 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ══ PAGE 1 : fond blanc ══ */
+  /* ══ PAGE 1 ══ */
   #page1 {
     background: #ffffff;
     color: var(--texte-sombre);
-    min-height: 100vh;
-    padding: 2.5rem 1.5rem;
     justify-content: center;
   }
 
@@ -71,12 +59,12 @@
     display: block;
     width: 100%;
     margin-top: 1rem;
-    padding: 0.85rem 1rem;
+    padding: 1rem;
     background: transparent;
     border: 1px solid var(--or);
     color: var(--brun);
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 400;
     letter-spacing: 0.1em;
     cursor: pointer;
@@ -85,16 +73,12 @@
   }
   #page1 .btn-page1:hover {
     background: rgba(201,169,110,0.12);
-    border-color: var(--brun);
   }
 
-  /* ══ PAGES 2 & 3 : fond blanc, texte sombre ══ */
+  /* ══ PAGES 2 & 3 ══ */
   #page2, #page3 {
     background: #ffffff;
     color: var(--texte-sombre);
-    min-height: 100vh;
-    padding: 2.5rem 1.5rem;
-    justify-content: center;
   }
 
   /* Ornement */
