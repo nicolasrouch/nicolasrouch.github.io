@@ -247,6 +247,12 @@
   .lang-btn.active { opacity: 1; background: rgba(160,120,64,0.12); font-weight: 700; }
   .lang-btn:hover { opacity: 1; }
 </style>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Marche avec Jésus">
+<meta name="theme-color" content="#a07840">
 </head>
 <body>
 <div class="lang-selector">
@@ -786,6 +792,18 @@ function nouveauVerset() {
 
 nouveauVerset();
 majUI();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js').then(function(reg) {
+      console.log('SW registered');
+    }).catch(function(err) {
+      console.log('SW error:', err);
+    });
+  });
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+{
+  "name": "Marche avec Jésus",
+  "short_name": "Marche avec Jésus",
+  "description": "Pose ta question intérieure et reçois une réponse dans la Parole de Dieu",
+  "start_url": "/team-jesus/",
+  "scope": "/team-jesus/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#a07840",
+  "orientation": "portrait",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
