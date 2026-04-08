@@ -562,7 +562,7 @@
   body.dark .page { background: #0a0a0a !important; color: #f0ebe0 !important; }
   body.dark .verset-texte, body.dark .meditation-texte, body.dark .intro,
   body.dark .priere-texte, body.dark .empty-msg, body.dark .limite-msg { color: #f0ebe0 !important; }
-  body.dark .btn, body.dark .btn-page1 { color: #f0ebe0 !important; border-color: #a07840; background: transparent; }
+  body.dark .btn { color: #f0ebe0 !important; border-color: #a07840; }
   body.dark .btn-lien { color: #c8b89a !important; }
   body.dark .meditation-bloc { background: rgba(160,120,64,0.08); border-color: rgba(160,120,64,0.3); }
   body.dark .verset-sauvegarde { background: rgba(160,120,64,0.08); border-color: rgba(160,120,64,0.3); }
@@ -742,12 +742,12 @@
 
 <div class="lang-wrapper">
   <select class="lang-select" id="lang-select" onchange="setLang(this.value)">
-    <option value="fr">🇫🇷 Français</option>
-    <option value="en">🇬🇧 English</option>
-    <option value="es">🇪🇸 Español</option>
-    <option value="it">🇮🇹 Italiano</option>
-    <option value="de">🇩🇪 Deutsch</option>
-    <option value="pt">🇵🇹 Português</option>
+    <option value="fr">🇫🇷 Langue</option>
+    <option value="en">🇬🇧 Language</option>
+    <option value="es">🇪🇸 Idioma</option>
+    <option value="it">🇮🇹 Lingua</option>
+    <option value="de">🇩🇪 Sprache</option>
+    <option value="pt">🇵🇹 Língua</option>
   </select>
 </div>
 
@@ -830,7 +830,6 @@
     </div>
     <div class="btns-row">
       <button class="btn-lien" id="app-relire" onclick="showPage('page2')" style="color:#000;"></button>
-      <button class="btn-lien" id="app-retour-accueil" onclick="showPage('page1')" style="color:#000;">&#x21a9; Nouvelle question</button>
     </div>
   </div>
 
@@ -851,7 +850,7 @@
     <div class="sep"></div>
     <p class="date-badge" id="priere-date"></p>
     <div class="priere-texte" id="priere-texte"></div>
-    <button id="amen-btn" onclick="clicAmen()" style="background:none;border:1px solid rgba(160,120,64,0.4);cursor:pointer;font-family:'IM Fell English',serif;font-size:1.4rem;color:#a07840;font-style:italic;text-align:center;margin:0.8rem auto 1.5rem;letter-spacing:0.15em;display:block;width:80%;padding:0.7rem;transition:all 0.3s;">Amen</button>
+    <p class="amen-text">Amen.</p>
     <button class="btn-lien" onclick="showPage('page1')" id="btn-retour-priere" style="color:#000;margin-top:1rem;"></button>
   </div>
 
@@ -881,12 +880,16 @@
     <div class="sep"></div>
     <div style="width:100%;margin-top:1.5rem;">
       <div class="stat-bloc">
-        <div class="stat-num" id="stat-connexions">0</div>
-        <div class="stat-label" id="stat-connexions-label">🙉 Connexions cette année</div>
+        <div class="stat-num" id="stat-streak">0</div>
+        <div class="stat-label" id="stat-streak-label">Jours de suite</div>
       </div>
       <div class="stat-bloc">
-        <div class="stat-num" id="stat-amens">0</div>
-        <div class="stat-label" id="stat-amens-label">✦ Prières du jour — Amen</div>
+        <div class="stat-num" id="stat-semaine">0</div>
+        <div class="stat-label" id="stat-semaine-label">Versets cette semaine</div>
+      </div>
+      <div class="stat-bloc">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label" id="stat-total-label">Versets au total</div>
       </div>
     </div>
     <button class="btn-lien" onclick="showPage('page1')" id="btn-retour-stats" style="color:#000;margin-top:1rem;"></button>
@@ -917,7 +920,7 @@
       </div>
       <div class="meditation-bloc" style="margin-top:0.5rem;">
         <div class="meditation-titre" id="about-contact-titre"></div>
-        <div class="meditation-texte about-texte"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd93949e92919c8ed38f92889e95d38e988f8b949e988ebd9a909c9491d39e9290">[email&#160;protected]</a></div>
+        <div class="meditation-texte about-texte">nicolas.rouch.services@gmail.com</div>
       </div>
     </div>
     <button class="btn-lien" onclick="showPage('page1')" id="btn-retour-about" style="color:#000;margin-top:1rem;"></button>
@@ -934,7 +937,7 @@
   <button class="btn-subscribe" id="btn-sub-bar" onclick="allerAbonnement()"></button>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ══════════════════════════════
 // UI TRANSLATIONS
 // ══════════════════════════════
@@ -1819,14 +1822,14 @@ function saveStats(st) {
 function updateStats() {
   const st = getStats();
   const cle = getCleJour();
-  const year = new Date().getFullYear().toString();
+  const cleWeek = getCleWeek();
   if (st.lastDay !== cle) {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate()-1);
+    const cleYest = yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+yesterday.getDate();
+    st.streak = (st.lastDay === cleYest) ? st.streak+1 : 1;
     st.lastDay = cle;
-    if (st.connexionsYear !== year) { st.connexionsYear = year; st.connexions = 0; }
-    st.connexions = (st.connexions || 0) + 1;
-    saveStats(st);
   }
-}
   if (st.semaineKey !== cleWeek) {
     st.semaineKey = cleWeek;
     st.semaineTotal = 0;
@@ -2058,10 +2061,12 @@ function showStats() {
   const t = UI[langue];
   const st = getStats();
   document.getElementById('stats-titre').textContent = t.statsTitre;
-  document.getElementById('stat-connexions').textContent = st.connexions || 0;
-  document.getElementById('stat-connexions-label').textContent = '🙉 ' + (t.connexionsLabel || 'connexions cette année');
-  document.getElementById('stat-amens').textContent = st.amens || 0;
-  document.getElementById('stat-amens-label').textContent = '✦ ' + (t.amensLabel || 'prières du jour — Amen');
+  document.getElementById('stat-streak').textContent = st.streak || 0;
+  document.getElementById('stat-streak-label').textContent = '🔥 ' + t.streakLabel;
+  document.getElementById('stat-semaine').textContent = st.semaineTotal || 0;
+  document.getElementById('stat-semaine-label').textContent = t.semaineLabel;
+  document.getElementById('stat-total').textContent = st.total || 0;
+  document.getElementById('stat-total-label').textContent = t.totalLabel;
   document.getElementById('btn-retour-stats').textContent = t.retourMenu;
   showPage('page-stats');
 }
@@ -2076,23 +2081,6 @@ function getCodeParrain() {
     localStorage.setItem('mav_code', code);
   }
   return code;
-}
-
-function clicAmen() {
-  const st = getStats();
-  const cle = getCleJour();
-  if (st.amenJour === cle) return;
-  st.amenJour = cle;
-  const year = new Date().getFullYear().toString();
-  if (st.amensYear !== year) { st.amensYear = year; st.amens = 0; }
-  st.amens = (st.amens || 0) + 1;
-  saveStats(st);
-  const btn = document.getElementById('amen-btn');
-  if (btn) {
-    btn.textContent = '✓ Amen';
-    btn.style.opacity = '0.6';
-    btn.style.fontSize = '1rem';
-  }
 }
 
 function showParrainage() {
@@ -2188,13 +2176,12 @@ function majUI() {
 }
 
 // INIT
-updateStats();
 const savedTheme = localStorage.getItem('mav_theme');
 if (savedTheme === 'dark') {
   document.body.classList.add('dark');
   document.getElementById('theme-btn').textContent = '☀️';
 }
-document.getElemedocument.getElementById('lang-select').value = langue;
+document.getElementById('lang-select').value = langue;
 versetsActuels = langue==='fr'?versets_fr:langue==='en'?versets_en:langue==='es'?versets_es:langue==='it'?versets_it:langue==='de'?versets_de:versets_pt;
 nouveauVerset();
 majUI();
