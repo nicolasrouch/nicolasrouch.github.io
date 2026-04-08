@@ -562,7 +562,7 @@
   body.dark .page { background: #0a0a0a !important; color: #f0ebe0 !important; }
   body.dark .verset-texte, body.dark .meditation-texte, body.dark .intro,
   body.dark .priere-texte, body.dark .empty-msg, body.dark .limite-msg { color: #f0ebe0 !important; }
-  body.dark .btn { color: #f0ebe0 !important; border-color: #a07840; }
+  body.dark .btn, body.dark .btn-page1 { color: #f0ebe0 !important; border-color: #a07840; background: transparent; }
   body.dark .btn-lien { color: #c8b89a !important; }
   body.dark .meditation-bloc { background: rgba(160,120,64,0.08); border-color: rgba(160,120,64,0.3); }
   body.dark .verset-sauvegarde { background: rgba(160,120,64,0.08); border-color: rgba(160,120,64,0.3); }
@@ -764,9 +764,6 @@
   <button class="drawer-btn" onclick="showVersets();closeDrawer()">
     <span class="icon">📖</span><span id="menu-versets">Mes versets du jour</span>
   </button>
-  <button class="drawer-btn" onclick="showStats();closeDrawer()">
-    <span class="icon">📊</span><span id="menu-stats">Statistiques</span>
-  </button>
   <button class="drawer-btn" onclick="showParrainage();closeDrawer()">
     <span class="icon">🎁</span><span id="menu-parrainage">Parrainer un ami</span>
   </button>
@@ -830,6 +827,7 @@
     </div>
     <div class="btns-row">
       <button class="btn-lien" id="app-relire" onclick="showPage('page2')" style="color:#000;"></button>
+      <button class="btn-lien" onclick="showPage('page1')" style="color:#000;">↩ Nouvelle question</button>
     </div>
   </div>
 
@@ -873,27 +871,7 @@
     <button class="btn-lien" onclick="showPage('page1')" id="btn-retour-versets" style="color:#000;margin-top:1rem;"></button>
   </div>
 
-  <!-- PAGE STATISTIQUES -->
-  <div class="page" id="page-stats">
-    <div class="ornement" style="margin-top:1rem;">✦ ✝ ✦</div>
-    <h2 id="stats-titre" style="font-family:'IM Fell English',serif;font-size:1.5rem;font-weight:400;color:#000;margin-bottom:0.5rem;text-align:center;"></h2>
-    <div class="sep"></div>
-    <div style="width:100%;margin-top:1.5rem;">
-      <div class="stat-bloc">
-        <div class="stat-num" id="stat-streak">0</div>
-        <div class="stat-label" id="stat-streak-label">Jours de suite</div>
-      </div>
-      <div class="stat-bloc">
-        <div class="stat-num" id="stat-semaine">0</div>
-        <div class="stat-label" id="stat-semaine-label">Versets cette semaine</div>
-      </div>
-      <div class="stat-bloc">
-        <div class="stat-num" id="stat-total">0</div>
-        <div class="stat-label" id="stat-total-label">Versets au total</div>
-      </div>
-    </div>
-    <button class="btn-lien" onclick="showPage('page1')" id="btn-retour-stats" style="color:#000;margin-top:1rem;"></button>
-  </div>
+
 
   <!-- PAGE PARRAINAGE -->
   <div class="page" id="page-parrain">
@@ -920,7 +898,7 @@
       </div>
       <div class="meditation-bloc" style="margin-top:0.5rem;">
         <div class="meditation-titre" id="about-contact-titre"></div>
-        <div class="meditation-texte about-texte">nicolas.rouch.services@gmail.com</div>
+        <div class="meditation-texte about-texte"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82ecebe1edeee3f1acf0edf7e1eaacf1e7f0f4ebe1e7f1c2e5efe3ebeeace1edef">[email&#160;protected]</a></div>
       </div>
     </div>
     <button class="btn-lien" onclick="showPage('page1')" id="btn-retour-about" style="color:#000;margin-top:1rem;"></button>
@@ -937,7 +915,7 @@
   <button class="btn-subscribe" id="btn-sub-bar" onclick="allerAbonnement()"></button>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══════════════════════════════
 // UI TRANSLATIONS
 // ══════════════════════════════
@@ -2181,6 +2159,7 @@ if (savedTheme === 'dark') {
   document.body.classList.add('dark');
   document.getElementById('theme-btn').textContent = '☀️';
 }
+document.getEleme
 document.getElementById('lang-select').value = langue;
 versetsActuels = langue==='fr'?versets_fr:langue==='en'?versets_en:langue==='es'?versets_es:langue==='it'?versets_it:langue==='de'?versets_de:versets_pt;
 nouveauVerset();
