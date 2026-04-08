@@ -773,6 +773,9 @@
   <button class="drawer-btn" onclick="showAbout();closeDrawer()">
     <span class="icon">ℹ️</span><span id="menu-about">À propos</span>
   </button>
+  <button class="drawer-btn" onclick="allerAbonnement();closeDrawer()" style="color:#a07840;border-bottom:1px solid rgba(160,120,64,0.3);">
+    <span class="icon">✨</span><span id="menu-abonnement">S'abonner — 2€/mois</span>
+  </button>
   <button class="drawer-close" onclick="closeDrawer()" id="menu-fermer">✕ Fermer</button>
 </div>
 
@@ -837,7 +840,6 @@
     <div style="font-size:2.5rem;margin-bottom:1.5rem;">🕯️</div>
     <div class="sep"></div>
     <p class="limite-msg" id="limite-msg"></p>
-    <button class="btn" id="btn-abonner" onclick="allerAbonnement()" style="color:#000;margin-bottom:1rem;"></button>
     <button class="btn-lien" onclick="showPage('page1')" id="btn-retour-limite" style="color:#000;margin-top:0.5rem;"></button>
   </div>
 
@@ -912,7 +914,6 @@
     <div class="compteur-dots" id="compteur-dots"></div>
     <span class="compteur-label" id="compteur-label"></span>
   </div>
-  <button class="btn-subscribe" id="btn-sub-bar" onclick="allerAbonnement()"></button>
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -1893,12 +1894,15 @@ function allerPage3() {
 }
 
 function allerAbonnement() {
-  alert(langue==='fr'?'Abonnement à venir ! Cette fonctionnalité sera disponible prochainement.':
-        langue==='en'?'Subscription coming soon! This feature will be available shortly.':
-        langue==='es'?'¡Suscripción próximamente! Esta función estará disponible en breve.':
-        langue==='it'?'Abbonamento in arrivo! Questa funzione sarà disponibile a breve.':
-        langue==='de'?'Abonnement kommt bald! Diese Funktion wird in Kürze verfügbar sein.':
-        'Subscrição em breve! Esta funcionalidade estará disponível brevemente.');
+  const msgs = {
+    fr: "✨ Abonnement Team Jesus\n\n3 questions par jour au lieu de 2.\nPrix : 2€/mois\n\nFonctionnalité bientôt disponible !\nMerci pour votre soutien 🙏",
+    en: "✨ Team Jesus Subscription\n\n3 questions per day instead of 2.\nPrice: €2/month\n\nFeature coming soon!\nThank you for your support 🙏",
+    es: "✨ Suscripción Team Jesus\n\n3 preguntas por día en lugar de 2.\nPrecio: 2€/mes\n\n¡Función próximamente!\nGracias por tu apoyo 🙏",
+    it: "✨ Abbonamento Team Jesus\n\n3 domande al giorno invece di 2.\nPrezzo: 2€/mese\n\nFunzione in arrivo!\nGrazie per il tuo supporto 🙏",
+    de: "✨ Team Jesus Abonnement\n\n3 Fragen pro Tag statt 2.\nPreis: 2€/Monat\n\nFunktion kommt bald!\nDanke für Ihre Unterstützung 🙏",
+    pt: "✨ Subscrição Team Jesus\n\n3 perguntas por dia em vez de 2.\nPreço: 2€/mês\n\nFuncionalidade em breve!\nObrigado pelo teu apoio 🙏"
+  };
+  alert(msgs[langue] || msgs.fr);
 }
 
 function nouveauVerset() {
@@ -1958,7 +1962,7 @@ function majCompteurBar() {
   dots.appendChild(d3);
   const labelIdx = Math.min(s.questions, 2);
   document.getElementById('compteur-label').textContent = t.compteurLabel[labelIdx];
-  document.getElementById('btn-sub-bar').textContent = t.barLabel;
+  if(document.getElementById('btn-sub-bar')) document.getElementById('btn-sub-bar').textContent = t.barLabel;
 }
 
 // ══════════════════════════════
@@ -2146,7 +2150,7 @@ function majUI() {
   document.getElementById('menu-fermer').textContent = t.menuFermer;
   document.getElementById('drawer-titre').textContent = t.drawerTitre;
   document.getElementById('limite-msg').textContent = t.limiteMsg;
-  document.getElementById('btn-abonner').textContent = t.btnAbonner;
+  if(document.getElementById('btn-abonner')) document.getElementById('btn-abonner').textContent = t.btnAbonner;
   document.getElementById('btn-retour-limite').textContent = t.retour;
   document.title = t.titre;
   majCompteurBar();
