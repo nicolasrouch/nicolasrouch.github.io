@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Marche avec Jésus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -68,6 +68,7 @@
     background: #ffffff;
     color: var(--texte-sombre);
     justify-content: center;
+    padding-bottom: 7rem;
   }
 
   #page1 .btn-page1 {
@@ -384,6 +385,7 @@
   .compteur-bar {
     position: fixed;
     bottom: 0;
+    padding-bottom: calc(0.7rem + env(safe-area-inset-bottom));
     left: 0;
     right: 0;
     background: #fff;
@@ -694,7 +696,7 @@
     top: 0; left: 0; right: 0; bottom: 0; width: 100%;
     padding-bottom: 5rem;
   }
-  #page1, #page2, #page3 { padding-bottom: 5rem; }
+  #page1, #page2, #page3 { padding-bottom: 8rem; }
 
   /* ══ PAGE PRIÈRE ══ */
   .priere-texte {
@@ -790,7 +792,7 @@
     <div class="sep"></div>
     <p id="app-sous-titre" style="font-family:'IM Fell English',Georgia,serif;font-size:1.15rem;font-style:italic;color:#000;margin-bottom:1rem;letter-spacing:0.05em;"></p>
     <p class="intro" id="app-intro" style="color:#000;"></p>
-    <button class="btn-page1" id="app-btn-pret" onclick="demanderVerset()" style="color:#000;"></button>
+    <button class="btn-page1" id="app-btn-pret" onclick="demanderVerset()" style="color:#000;margin-bottom:4rem;"></button>
   </div>
 
   <!-- PAGE 2 -->
