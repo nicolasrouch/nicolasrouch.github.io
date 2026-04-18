@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.teamjesus.app",
+      "sha256_cert_fingerprints": [
+        "2F:11:3C:CE:E3:33:24:A5:DC:B8:19:B3:F8:1C:92:1C:2C:19:FF:72:7A:2B:4C:57:ED:E2:26:82:49:12:65:81"
+      ]
+    }
+  }
+]
